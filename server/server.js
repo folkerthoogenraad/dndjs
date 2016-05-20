@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var db = require("./database.js");
+var crypto = require('crypto');
 
 var keys = [];
 
@@ -24,27 +25,6 @@ app.use(function(req, res, next) {
 ===============================================================================
 */
 
-//Give this user his or her token
-app.get('/token', function (req, res) {
-  var user = req.query.username;
-  var password = req.query.password;
-
-  //Login the user :)
-  db.getUserIdByNameAndPassword(user, password, function(userID){
-    var key = "" + Math.random() * 100000000;
-    //TODO check password!
-    keys[key] = userID;
-
-    res.end(JSON.stringify({
-      key: key,
-      name: user
-    }));
-  });
-
-
-
-});
-
 //get user info :), this needs to get shittonnes better by the way <3
 app.get('/user', function (req, res) {
   var userID = getUserIdByKey(req.query.key); //TODO do stuff with this
@@ -63,7 +43,7 @@ app.get('/user', function (req, res) {
 //Return the inventory for this user
 app.get('/inventory', function(req, res){
   var userID = getUserIdByKey(req.query.key);
-  
+
   if(userID < 0){
     res.status(400).send("Invalid user token.");
     return;
@@ -75,16 +55,78 @@ app.get('/inventory', function(req, res){
 
 });
 
+/*
+===============================================================================
+===============================================================================
+*/
+
+//Refactor this, update this, make it safe.
+app.get('/items/create', function(req, res){
+  /*var userID = getUserIdByKey(req.query.key);
+
+  if(userID < 0){
+    res.status(400).send("Invalid user token.");
+    return;
+  }*/
+
+  //TODO check if its an system admin! Very important!
+
+  db.createItem(req.query.name, req.query.description, req.query.value, req.query.weight, function(err){
+    if(err){
+      res.status(400).send("Couldn't create item.");
+    }
+    res.status(200).send("Done!");
+  });
+
+});
+
+
+/*
+===============================================================================
+===============================================================================
+*/
+
+//Give this user his or her token
+app.get('/token', function (req, res) {
+  var user = req.query.username;
+  //Don't store plain text passwords kids, although md5 is not much better :')
+  var password = crypto.createHash('md5').update(req.query.password).digest('hex');
+
+  //Login the user :)
+  db.getUserIdByNameAndPassword(user, password, function(err, userID){
+    if(err){
+      res.status(402).send("Login failed!");
+      return;
+    }
+
+    var key = "" + Math.random() * 100000000;
+    //TODO check password!
+    keys[key] = userID;
+
+    res.end(JSON.stringify({
+      key: key,
+      name: user
+    }));
+  });
+});
+
 //Using a get request for registering #yolo #best programmer EUW
 app.get('/register', function(req, res){
   var user = req.query.username;
-  var password = req.query.password;
+  //Don't store plain text passwords kids, although md5 is not much better :')
+  var password = crypto.createHash('md5').update(req.query.password).digest('hex');
   var name = req.query.realname;
 
   console.log(user + " tried to register.");
 
-  //TODO save in the database and stuff
-  res.status(200).send("Stuff went well :D");
+  db.createUser(user,password,name, function(err){
+    if(err){
+      res.status(400).send("It broke!");
+    }else{
+      //close but not even close spelling <3
+      res.status(200).send("Registered succesuffly");
+    }
+  });
 });
 
 /*

@@ -1,5 +1,10 @@
 # dndjs
-A Dungeons and Dragons (or simular) role play helper app/server. This works on any server, as long as your files in the server directory are run by node.js. It is, however, required to have a mysql server installed, for the server to connect to.
+A Dungeons and Dragons (or simular) role play helper app/server. This works on any server, as long as your files in the server directory are run by node.js. It is, however, required to have a mysql server installed, for the server to connect to. Also make sure you have a database named dungeons (unless you change this in database.js).
+
+### Checklist
+ - nodejs installed
+ - apache2 (or different server)
+ - mysql installed
 
 ## Usage
 If you want to use this project on your own server, feel free to clone this repositoy, or download it as a zip file. To run it, all you realy need to change is:
@@ -13,9 +18,13 @@ This address has to match the server address of your nodejs server. To run the n
 ```
 npm install express
 npm install mysql
+npm install crypto
 node server.js
 ```
 (Yes, I know, I should add a package.json <3)
+
+## Database
+By default the database name should be 'dungeons'. If you want to change this, see database.js.
 
 ## Security
 To prevent people from downloading your server files (in case this is private for you, because mysql passwords for example) you will need to add an .htaccess file. Google will help you out with this anytime.
