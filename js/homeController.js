@@ -2,6 +2,7 @@ app.controller('HomeController', ['$scope', '$location', '$http', 'user', functi
   //TODO validate key!
   if(!window.localStorage.getItem("key")){
     $location.path('login');
+    return;
   }
 
   $scope.name = "MISSINGNO";
@@ -15,8 +16,10 @@ app.controller('HomeController', ['$scope', '$location', '$http', 'user', functi
     $scope.name = response.data.name;
   }, function errorCallback(response) {
     //Error
-    swal("Error", "Failed to fetch user info", "error");
-    $location.path('login');
+    swal("Error", "Failed to fetch user info", "error", function(){
+      $location.path('home');
+      $scope.$apply();
+    });
   });
 
   $scope.inventory = function(){

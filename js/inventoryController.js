@@ -44,12 +44,11 @@ app.controller('InventoryController', ['$scope', '$location', '$http', function(
   }, function errorCallback(response) {
     //Error
     swal("Error", "Failed to fetch user info", "error");
-    $location.path('login');
   });
 
   $http({
     method: 'GET',
-    url: baseUrl+'/inventory'
+    url: baseUrl+'/inventory?key='+window.localStorage.getItem("key"),
   }).then(function successCallback(response) {
     //Success
     $scope.items = response.data;

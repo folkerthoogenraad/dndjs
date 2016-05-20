@@ -1,11 +1,15 @@
 var express = require('express');
 var app = express();
 var fs = require("fs");
+var db = require("./database.js");
 
 var keys = [];
 
 function getUserIdByKey(key){
-  return true;
+  if(keys[key] !== undefined)
+    return keys[key];
+  else
+    return -1;
 }
 
 app.use(function(req, res, next) {
@@ -25,43 +29,50 @@ app.get('/token', function (req, res) {
   var user = req.query.username;
   var password = req.query.password;
 
-  //TODO check password!
-  keys[user] = Math.random() * 100000;
+  //Login the user :)
+  db.getUserIdByNameAndPassword(user, password, function(userID){
+    var key = "" + Math.random() * 100000000;
+    //TODO check password!
+    keys[key] = userID;
 
-  res.end(JSON.stringify({
-    key: keys[user],
-    name: user
-  }));
+    res.end(JSON.stringify({
+      key: key,
+      name: user
+    }));
+  });
+
+
 
 });
 
 //get user info :), this needs to get shittonnes better by the way <3
 app.get('/user', function (req, res) {
-  var user = getUserIdByKey(req.query.key); //TODO do stuff with this
+  var userID = getUserIdByKey(req.query.key); //TODO do stuff with this
+  if(userID < 0){
+    res.status(400).send("Invalid user token.");
+    return;
+  }
 
-  setTimeout(function(){
-    res.end(JSON.stringify({
-      name:"Varis Ermagahd",
-      gold:12
-    }));
-  },2000);
+  //fetch the user data from the database
+  db.getUserDataById(userID, function(result){
+    res.end(JSON.stringify(result));
+  });
 
 });
 
 //Return the inventory for this user
 app.get('/inventory', function(req, res){
-  if(!getUserIdByKey(req.query.key)){
+  var userID = getUserIdByKey(req.query.key);
+  
+  if(userID < 0){
     res.status(400).send("Invalid user token.");
     return;
   }
-  res.end(JSON.stringify(
-    [{
-      "name":"Longsword",
-      "description":"1d8 damage, Versitile (1d10), Piemels, Hansaplasts",
-      "value":8,
-      "weight":13,
-    }]
-  ));
+
+  db.getInventoryById(getUserIdByKey(req.query.key), function(result){
+    res.end(JSON.stringify(result));
+  });
+
 });
 
 //Using a get request for registering #yolo #best programmer EUW

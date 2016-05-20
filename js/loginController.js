@@ -1,7 +1,7 @@
 app.controller('LoginController', ['$scope', '$location', '$http', 'user', function($scope, $location, $http, user) {
 
   if(window.localStorage.getItem("key")){
-    $location.path('home');
+    window.localStorage.removeItem("key");
   }
   $scope.canInput = true;
   $scope.username = "";
@@ -23,6 +23,8 @@ app.controller('LoginController', ['$scope', '$location', '$http', 'user', funct
       url: baseUrl+'/token?username='+$scope.username+'&password='+$scope.password,
     }).then(function successCallback(response) {
       //Success
+      console.log(response.data);
+      console.log(response.data.key);
       window.localStorage.setItem("key", response.data.key);
       user = response.data.name;
       $location.path('home');
