@@ -1,0 +1,13 @@
+<div class="container" ng-controller="RegisterController">
+  <h1>Register</h1>
+  <form ng-submit="submit()">
+    Username<input ng-disabled="!canInput" class="form-control" type="text" name="name" ng-model="username" placeholder="Snowboy123">
+    Password<input ng-disabled="!canInput" class="form-control" type="password" name="name" ng-model="password" placeholder="baconstrips123">
+    Real name<input ng-disabled="!canInput" class="form-control" type="text" name="name" ng-model="realname" placeholder="John Snow">
+    <hr>
+    <p>
+      Do you already have an account? <a href="#/login">Log in here.</a>
+    </p>
+    <input ng-disabled="!canInput" type="submit" name="name" value="Register" class="btn btn-default">
+  </form>
+</div>

@@ -1,0 +1,17 @@
+<div ng-controller="InventoryController">
+  <div class="header">
+    <div class="col-xs-1 extra" ng-click="back()"><<</div>
+    <div class="col-xs-6"><h1>Inventory</h1></div>
+    <div class="col-xs-5 extra">{{getWeightSum()}} lbs<br />{{gold}}gp ({{getMoneySum()}}gp)</div>
+  </div>
+  <div class="content">
+    <ul class="items">
+      <li class="items" ng-repeat="item in items">
+        <div class="col-xs-3">{{item.name}} </div>
+        <div class="col-xs-5 description">{{item.description}} </div>
+        <div class="col-xs-2">{{item.value}}gp</div>
+        <div class="col-xs-2">{{item.weight}} lbs</div>
+      </li>
+    </ul>
+  </div>
+</div>

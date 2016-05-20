@@ -1,0 +1,14 @@
+<div class="container" ng-controller="HomeController">
+  <h1>Dungeons and Dragons</h1>
+  <p>
+    Welcome <strong>{{name}}</strong>. Click on the links below to check out your stats and stuff.
+  </p>
+
+  <ul class="items">
+    <li ng-click="inventory()">Inventory</li>
+    <li ng-click="map()">Map</li>
+    <li ng-click="chat()">Chat</li>
+    <li ng-click="logout()">Log out</li>
+  </ul>
+
+</div>
