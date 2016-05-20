@@ -13,7 +13,7 @@ This address has to match the server address of your nodejs server. To run the n
 ```
 npm install express
 npm install mysql
-node server/server.js
+node server.js
 ```
 (Yes, I know, I should add a package.json <3)
 
