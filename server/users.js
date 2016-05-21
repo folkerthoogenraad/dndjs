@@ -43,7 +43,13 @@ module.exports = function(app, db, keys){
     if(!password) {res.status(400).send("No password specified"); return;}
     if(!realname) {res.status(400).send("No realname specified"); return;}
 
-    
+    db.createUser(username, keys.hash(password), realname, function(err){
+      if(err){
+        res.status(409).send("Coudn't create user, does the username already exist?");
+      }else{
+        res.status(200).send("User created succesfully");
+      }
+    });
 
   });
 

@@ -23,6 +23,7 @@ app.use(function(req, res, next) {
 
 //Register user endpoints
 require("./users.js")(app, db, keys);
+require("./tokens.js")(app, db, keys);
 
 //Return the inventory for this user
 app.get('/inventory', function(req, res){
@@ -64,59 +65,6 @@ app.get('/items/create', function(req, res){
 
 });
 
-
-/*
-===============================================================================
-===============================================================================
-*/
-
-//Give this user his or her token
-app.get('/token', function (req, res) {
-  var user = req.query.username;
-  //Don't store plain text passwords kids, although md5 is not much better :')
-  var password = crypto.createHash('md5').update(req.query.password).digest('hex');
-
-  //Login the user :)
-  db.getUserIdByNameAndPassword(user, password, function(err, userID){
-    if(err){
-      res.status(402).send("Login failed!");
-      return;
-    }
-
-    var key = "" + Math.random() * 100000000;
-    //TODO check password!
-    keys[key] = userID;
-
-    res.end(JSON.stringify({
-      key: key,
-      name: user
-    }));
-  });
-});
-
-//Using a get request for registering #yolo #best programmer EUW
-app.get('/register', function(req, res){
-  var user = req.query.username;
-  //Don't store plain text passwords kids, although md5 is not much better :')
-  var password = crypto.createHash('md5').update(req.query.password).digest('hex');
-  var name = req.query.realname;
-
-  console.log(user + " tried to register.");
-
-  db.createUser(user,password,name, function(err){
-    if(err){
-      res.status(400).send("It broke!");
-    }else{
-      //close but not even close spelling <3
-      res.status(200).send("Registered succesuffly");
-    }
-  });
-});
-
-/*
-===============================================================================
-===============================================================================
-*/
 
 var server = app.listen(8080, function () {
   var port = server.address().port;

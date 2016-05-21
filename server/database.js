@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 connection.connect();
 
 exports.getUserIdByNameAndPassword = function(name, password, callback){
-  connection.query('SELECT id FROM users WHERE username=? AND password=?', [name, password], function(error, results, fields) {
+  connection.query('SELECT id FROM User WHERE username=? AND password=?', [name, password], function(error, results, fields) {
     if (error){
       console.log(error);
       callback(error, -1);
@@ -26,7 +26,7 @@ exports.getUserIdByNameAndPassword = function(name, password, callback){
 };
 
 exports.getUserDataById = function(id, callback){
-  connection.query('SELECT name, gold FROM users WHERE id=?', [id], function(error, results, fields) {
+  connection.query('SELECT fullname, gold FROM User WHERE id=?', [id], function(error, results, fields) {
     if (error){
       console.log(error);
       callback(error, {
@@ -38,7 +38,7 @@ exports.getUserDataById = function(id, callback){
 
     if(results[0] !== undefined){
       callback(false, {
-        name:results[0].name,
+        name:results[0].fullname,
         gold:results[0].gold
       });
     }else{
@@ -64,11 +64,11 @@ exports.createUser = function(username, password, realname, callback){
   var post = {
     username : username,
     password : password,
-    name : realname,
+    fullname : realname,
     gold : 0
   };
 
-  connection.query('INSERT INTO users SET ?', post, function(err, result) {
+  connection.query('INSERT INTO User SET ?', post, function(err, result) {
     if (err){
       console.log(err);
       callback(err);
