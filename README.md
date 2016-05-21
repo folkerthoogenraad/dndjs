@@ -7,7 +7,7 @@ A Dungeons and Dragons (or simular) role play helper app/server. This works on a
  - mysql installed
 
 ## Usage
-If you want to use this project on your own server, feel free to clone this repositoy, or download it as a zip file. To run it, all you realy need to change is:
+If you want to use this project on your own server, feel free to clone this repositoy, or download it as a zip file. To run it, all you really need to change is:
 ```
 var baseUrl = 'mycoolsite-orip.com';
 ```
@@ -16,15 +16,16 @@ Located in js/master.js (line 2).
 
 This address has to match the server address of your nodejs server. To run the nodejs server, run this in your default command line interpreter (assuming you have nodejs installed). Make sure your current working path is in the *server* directory.
 ```
-npm install express
-npm install mysql
-npm install crypto
+npm install
 node server.js
 ```
-(Yes, I know, I should add a package.json <3)
+~(Yes, I know, I should add a package.json <3)~ Done
 
 ## Database
-By default the database name should be 'dungeons'. If you want to change this, see database.js.
+By default the database name should be 'dungeons'. If you want to change this, see database.js. Database scheme coming when its final.
 
 ## Security
-To prevent people from downloading your server files (in case this is private for you, because mysql passwords for example) you will need to add an .htaccess file. Google will help you out with this anytime.
+To prevent people from downloading your server files (in case this is private for you, because mysql passwords for example) you will need to add an .htaccess file. Google will help you out with this anytime. Or, even easier, you could move the server directory to another place all together.
+
+## Feedback
+If you have any feedback, please file a pull request.

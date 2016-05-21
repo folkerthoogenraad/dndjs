@@ -8,11 +8,11 @@ module.exports = {
   },
   setUserId : function(key, id){
     //Delete the key for the user, if it already exists. This is O(n) sadly enough.
-    keys.forEach(function(element, index, array){
-      if(element == id){
-        array[index] = undefined;
+    for(var k in keys){
+      if(keys[k] == id){
+        delete keys[k];
       }
-    });
+    }
 
     keys[key] = id;
   },
