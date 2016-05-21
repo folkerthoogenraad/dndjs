@@ -2,16 +2,17 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var db = require("./database.js");
+var keys = require("./keys.js");
 var crypto = require('crypto');
 
-var keys = [];
+/*var keys = [];
 
 function getUserIdByKey(key){
   if(keys[key] !== undefined)
     return keys[key];
   else
     return -1;
-}
+}*/
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -20,25 +21,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-/*
-===============================================================================
-===============================================================================
-*/
-
-//get user info :), this needs to get shittonnes better by the way <3
-app.get('/user', function (req, res) {
-  var userID = getUserIdByKey(req.query.key); //TODO do stuff with this
-  if(userID < 0){
-    res.status(400).send("Invalid user token.");
-    return;
-  }
-
-  //fetch the user data from the database
-  db.getUserDataById(userID, function(result){
-    res.end(JSON.stringify(result));
-  });
-
-});
+//Register user endpoints
+require("./users.js")(app, db, keys);
 
 //Return the inventory for this user
 app.get('/inventory', function(req, res){

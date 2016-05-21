@@ -19,7 +19,7 @@ exports.getUserIdByNameAndPassword = function(name, password, callback){
     if(results[0] !== undefined){
       callback(false, results[0].id);
     }else{
-      callback(true, -1);
+      callback("User not found!", -1);
     }
 
   });
@@ -29,7 +29,7 @@ exports.getUserDataById = function(id, callback){
   connection.query('SELECT name, gold FROM users WHERE id=?', [id], function(error, results, fields) {
     if (error){
       console.log(error);
-      callback({
+      callback(error, {
         name:"???",
         gold:0
       });
@@ -37,12 +37,12 @@ exports.getUserDataById = function(id, callback){
     }
 
     if(results[0] !== undefined){
-      callback({
+      callback(false, {
         name:results[0].name,
         gold:results[0].gold
       });
     }else{
-      callback({
+      callback("User not found!", {
         name:"???",
         gold:0
       });
