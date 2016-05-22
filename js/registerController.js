@@ -25,8 +25,8 @@ app.controller('RegisterController', ['$scope', '$location', '$http', 'user', fu
 
     $scope.canInput = false;
     $http({
-      method: 'GET',
-      url: baseUrl+'/register?username='+$scope.username+'&password='+$scope.password+'&realname='+$scope.realname,
+      method: 'PUT',
+      url: baseUrl+'/users?username='+$scope.username+'&password='+$scope.password+'&realname='+$scope.realname,
     }).then(function successCallback(response) {
       //Success
       // TODO maybe give a success message?

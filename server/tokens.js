@@ -1,5 +1,5 @@
 /**
- * The user endpoints defined here.
+ * The token endpoint defined here.
 */
 module.exports = function(app, db, keys){
 
@@ -26,6 +26,6 @@ module.exports = function(app, db, keys){
 
     });
   });
-  
+
 
 };

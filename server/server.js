@@ -24,6 +24,7 @@ app.use(function(req, res, next) {
 //Register user endpoints
 require("./users.js")(app, db, keys);
 require("./tokens.js")(app, db, keys);
+require("./items.js")(app, db, keys);
 
 //Return the inventory for this user
 app.get('/inventory', function(req, res){
@@ -54,7 +55,7 @@ app.get('/items/create', function(req, res){
     return;
   }*/
 
-  //TODO check if its an system admin! Very important!
+  //TODO check if its an s̶y̶s̶t̶e̶m̶ ̶a̶d̶m̶i̶n̶  Gunther! Very important!
 
   db.createItem(req.query.name, req.query.description, req.query.value, req.query.weight, function(err){
     if(err){

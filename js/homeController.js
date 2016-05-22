@@ -10,16 +10,15 @@ app.controller('HomeController', ['$scope', '$location', '$http', 'user', functi
   //Request user information
   $http({
     method: 'GET',
-    url: baseUrl+'/user?key='+window.localStorage.getItem("key"),
+    url: baseUrl+'/users/me?key='+window.localStorage.getItem("key"),
   }).then(function successCallback(response) {
     //Success
     $scope.name = response.data.name;
   }, function errorCallback(response) {
     //Error
-    swal("Error", "Failed to fetch user info", "error", function(){
-      $location.path('home');
-      $scope.$apply();
-    });
+    console.log("Key is not valid probably.");
+    $location.path('login');
+    $scope.$apply();
   });
 
   $scope.inventory = function(){

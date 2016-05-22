@@ -36,25 +36,27 @@ app.controller('InventoryController', ['$scope', '$location', '$http', function(
 
   $http({
     method: 'GET',
-    url: baseUrl+'/user?key='+window.localStorage.getItem("key"),
+    url: baseUrl+'/users/me?key='+window.localStorage.getItem("key"),
   }).then(function successCallback(response) {
     //Success
     $scope.name = response.data.name;
     $scope.gold = response.data.gold;
   }, function errorCallback(response) {
     //Error
-    swal("Error", "Failed to fetch user info", "error");
+    console.log("Failed to fetch user info. Key is probably not valid anymore.");
+    $location.path('login');
   });
 
   $http({
     method: 'GET',
-    url: baseUrl+'/inventory?key='+window.localStorage.getItem("key"),
+    url: baseUrl+'/users/me/inventory?key='+window.localStorage.getItem("key"),
   }).then(function successCallback(response) {
     //Success
     $scope.items = response.data;
   }, function errorCallback(response) {
     //Error
-    swal("Error", "Couldn't fetch items", "error");
+    console.log("Failed to fetch user inventory. Key is probably not valid anymore.");
+    $location.path('login');
   });
 
 }]);

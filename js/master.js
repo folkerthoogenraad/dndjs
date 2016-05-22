@@ -1,5 +1,5 @@
 var app = angular.module('DungeonsAndDragonsApp', ['ngRoute']);
-var baseUrl = 'http://192.168.178.19:8080';
+var baseUrl = 'http://localhost:8080';
 
 app.config(['$routeProvider',function($routeProvider){
   $routeProvider.when('/home', {

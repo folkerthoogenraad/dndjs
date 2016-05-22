@@ -2,7 +2,7 @@
   <div class="header">
     <div class="col-xs-1 extra" ng-click="back()"><<</div>
     <div class="col-xs-7"><h4>Inventory</h4></div>
-    <div class="col-xs-4 extra">{{getWeightSum()}} lbs<br />{{gold}}gp ({{getMoneySum()}}gp)</div>
+    <div class="col-xs-4 extra">{{getWeightSum()}} kg<br />{{gold}}gp ({{getMoneySum()}}gp)</div>
   </div>
   <div class="content">
     <ul class="items">
@@ -10,7 +10,7 @@
         <div class="col-xs-3">{{item.name}} </div>
         <div class="col-xs-5 description">{{item.description}} </div>
         <div class="col-xs-2">{{item.value}}gp</div>
-        <div class="col-xs-2">{{item.weight}} lbs</div>
+        <div class="col-xs-2">{{item.weight}} kg</div>
       </li>
     </ul>
   </div>

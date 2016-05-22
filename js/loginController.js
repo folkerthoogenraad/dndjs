@@ -3,6 +3,7 @@ app.controller('LoginController', ['$scope', '$location', '$http', 'user', funct
   if(window.localStorage.getItem("key")){
     window.localStorage.removeItem("key");
   }
+
   $scope.canInput = true;
   $scope.username = "";
   $scope.password = "";
@@ -16,6 +17,9 @@ app.controller('LoginController', ['$scope', '$location', '$http', 'user', funct
       swal("Invalid password", "Password is too short!", "error");
       return;
     }
+    if($scope.username == "Gunther" {
+      swal("Oeeh", "My ding ding dong");
+    }
 
     $scope.canInput = false;
     $http({
@@ -23,14 +27,13 @@ app.controller('LoginController', ['$scope', '$location', '$http', 'user', funct
       url: baseUrl+'/token?username='+$scope.username+'&password='+$scope.password,
     }).then(function successCallback(response) {
       //Success
-      console.log(response.data);
-      console.log(response.data.key);
       window.localStorage.setItem("key", response.data.key);
       user = response.data.name;
       $location.path('home');
     }, function errorCallback(response) {
+      console.dir(status);
       //Error
-      swal("Error", "Failed to log in!", "error");
+      swal("Error", "Are your login credentials correct?", "error");
       $scope.canInput = true;
     });
   };

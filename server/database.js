@@ -51,12 +51,21 @@ exports.getUserDataById = function(id, callback){
 };
 
 exports.getInventoryById = function(id, callback){
-  callback([{
+
+  connection.query('SELECT name, description, weight, value FROM Inventory, Item WHERE Inventory.item_id = Item.id AND Inventory.user_id = ?', id, function(err, results, fields){
+    if(err){
+      callback(err, []);
+    }else{
+      callback(false, results);
+    }
+  });
+
+  /*callback(false, [{
     "name":"Longsword",
     "description":"1d8 damage, Versitile (1d10), Piemels, Hansaplasts",
     "value":8,
     "weight":13,
-  }]);
+  }]);*/
 };
 
 exports.createUser = function(username, password, realname, callback){
