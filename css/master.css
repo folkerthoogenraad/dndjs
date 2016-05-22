@@ -41,6 +41,6 @@ ul{
   color:gray;
 }
 
-.items li:hover{
+.hover *:hover{
   background:#eee;
 }

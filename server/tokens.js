@@ -10,7 +10,7 @@ module.exports = function(app, db, keys){
     if(!username) {res.status(400).send("No username specified"); return;}
     if(!password) {res.status(400).send("No password specified"); return;}
 
-    db.getUserIdByNameAndPassword(username, keys.hash(password), function(err, userID){
+    db.getUserIdByNameAndPassword(username, keys.hash(password), function(err, user){
       if(err){
         res.status(403).send("Failed to log in.");
         return;
@@ -18,7 +18,9 @@ module.exports = function(app, db, keys){
 
       var key = keys.generateKey();
 
-      keys.setUserId(key, userID);
+      //set the key, and user rights
+      keys.setUserId(key, user.id);
+      keys.setRights(user.id, user.rights);
 
       res.end(JSON.stringify({
         key:key

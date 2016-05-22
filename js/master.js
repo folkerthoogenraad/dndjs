@@ -1,4 +1,4 @@
-var app = angular.module('DungeonsAndDragonsApp', ['ngRoute']);
+var app = angular.module('DungeonsAndDragonsApp', ['ngRoute', 'ui.bootstrap']);
 var baseUrl = 'http://localhost:8080';
 
 app.config(['$routeProvider',function($routeProvider){

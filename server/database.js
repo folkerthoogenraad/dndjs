@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 connection.connect();
 
 exports.getUserIdByNameAndPassword = function(name, password, callback){
-  connection.query('SELECT id FROM User WHERE username=? AND password=?', [name, password], function(error, results, fields) {
+  connection.query('SELECT id, rights FROM User WHERE username=? AND password=?', [name, password], function(error, results, fields) {
     if (error){
       console.log(error);
       callback(error, -1);
@@ -17,7 +17,7 @@ exports.getUserIdByNameAndPassword = function(name, password, callback){
     }
 
     if(results[0] !== undefined){
-      callback(false, results[0].id);
+      callback(false, results[0]);
     }else{
       callback("User not found!", -1);
     }
@@ -52,8 +52,9 @@ exports.getUserDataById = function(id, callback){
 
 exports.getInventoryById = function(id, callback){
 
-  connection.query('SELECT name, description, weight, value FROM Inventory, Item WHERE Inventory.item_id = Item.id AND Inventory.user_id = ?', id, function(err, results, fields){
+  connection.query('SELECT Item.id, name, description, weight, value FROM Inventory, Item WHERE Inventory.item_id = Item.id AND Inventory.user_id = ?', id, function(err, results, fields){
     if(err){
+      console.log(err);
       callback(err, []);
     }else{
       callback(false, results);

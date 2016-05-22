@@ -1,4 +1,4 @@
-app.controller('LoginController', ['$scope', '$location', '$http', 'user', function($scope, $location, $http, user) {
+app.controller('LoginController', ['$scope', '$location', '$http', '$uibModal', 'user', function($scope, $location, $http, $uibModal, user) {
 
   if(window.localStorage.getItem("key")){
     window.localStorage.removeItem("key");
@@ -8,6 +8,11 @@ app.controller('LoginController', ['$scope', '$location', '$http', 'user', funct
   $scope.username = "";
   $scope.password = "";
 
+  //For testing only ofc
+  $uibModal.open({
+    templateUrl: 'modals/loot.html'
+  });
+
   $scope.submit = function(){
     if($scope.username.length < 3){
       swal("Invalid username", "Username is too short!", "error");
@@ -16,9 +21,6 @@ app.controller('LoginController', ['$scope', '$location', '$http', 'user', funct
     if($scope.password.length < 3){
       swal("Invalid password", "Password is too short!", "error");
       return;
-    }
-    if($scope.username == "Gunther" {
-      swal("Oeeh", "My ding ding dong");
     }
 
     $scope.canInput = false;

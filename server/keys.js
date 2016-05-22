@@ -1,6 +1,7 @@
 var crypto = require('crypto');
 
 var keys = [];
+var rights = []; //cache the rights
 
 module.exports = {
   getUserId : function(key){
@@ -18,6 +19,15 @@ module.exports = {
   },
   generateKey : function(){ //This is a GREAT way to generate stuff
     return (""+Math.random()).substring(2);
+  },
+  setRights : function(id, r){
+    rights[id] = r;
+  },
+  isAdmin : function(id){
+    return rights[id] == "admin";
+  },
+  getRights : function(id){
+    return rights[id];
   },
   hash : function(input){
     return crypto.createHash('md5').update(input).digest('hex');
