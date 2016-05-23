@@ -1,4 +1,5 @@
 var app = angular.module('DungeonsAndDragonsApp', ['ngRoute', 'ui.bootstrap']);
+//if you leave this at null, it uses the same server host, but at port 8080
 var baseUrl = null; //'http://localhost:8080'
 
 app.config(['$routeProvider',function($routeProvider){
@@ -26,13 +27,17 @@ app.controller('MasterController', ['$scope', '$location', '$interval', '$http',
     baseUrl = 'http://' + $location.host() + ':8080';
   }
 
+  //Every half a second, check if loot has dropped
   var promise = $interval(function(){
     if(window.localStorage.getItem("key")){
       $http({
         method: 'GET',
-        url: baseUrl+'/dungeon/loot?key='+window.localStorage.getItem("key"),
+        url: baseUrl+'/dungeon/events?key='+window.localStorage.getItem("key"),
       }).then(function successCallback(response) {
         //Success
+
+        var d = response.data;
+        console.log(d);
 
       }, function errorCallback(response) {
         console.error("Can't obtain status info for user. Is the server offline? (" + $location.path() + ")");
