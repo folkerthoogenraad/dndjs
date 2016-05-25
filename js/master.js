@@ -37,7 +37,6 @@ app.controller('MasterController', ['$scope', '$location', '$interval', '$http',
         //Success
 
         var d = response.data;
-        console.log(d);
 
       }, function errorCallback(response) {
         console.error("Can't obtain status info for user. Is the server offline? (" + $location.path() + ")");

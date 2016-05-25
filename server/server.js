@@ -12,6 +12,51 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(req, res, next){
+  req.user = {
+    key : req.query.key,
+    id : keys.getUserId(req.query.key),
+    admin : false,
+    valid : false
+  };
+  req.user.admin = keys.isAdmin(req.user.id);
+  req.user.valid = req.user.key !== undefined;
+
+  req.user.requireAdmin = function(){
+    if(!req.query.key){
+      res.status(400).send("No key specified");
+      return false;
+    }
+
+    if(!req.user.id){
+      res.status(400).send("Invalid key");
+      return false;
+    }
+
+    if(!req.user.admin){
+      res.status(403).send("Unauthorized, you need to be admin for this");
+      return false;
+    }
+
+    return true;
+  };
+
+  req.user.requireLogin = function(){
+    if(!req.query.key){
+      res.status(400).send("No key specified");
+      return false;
+    }
+
+    if(!req.user.id){
+      res.status(400).send("Invalid key");
+      return false;
+    }
+
+    return true;
+  };
+  next();
+});
+
 //Register user endpoints
 require("./users.js")(app, db, keys);
 require("./tokens.js")(app, db, keys);

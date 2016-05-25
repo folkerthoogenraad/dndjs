@@ -6,20 +6,12 @@ module.exports = function(app, db, keys){
   app.get('/users/me/inventory', function(req, res){
 
     //Checks
-    if(!req.query.key){
-      res.status(400).send("No key specified");
-      return;
-    }
-
-    var userID = keys.getUserId(req.query.key);
-
-    if(!userID){
-      res.status(400).send("Invalid key");
+    if(!req.user.requireLogin()){
       return;
     }
 
     //Actual code
-    db.getInventoryById(userID, function(error, inventory){
+    db.getInventoryById(req.user.id, function(error, inventory){
       if(error){
         res.status(500).send("Internal server error.");
       }
@@ -30,20 +22,7 @@ module.exports = function(app, db, keys){
   app.get('/items', function(req, res){
 
     //Checks
-    if(!req.query.key){
-      res.status(400).send("No key specified");
-      return;
-    }
-
-    var userID = keys.getUserId(req.query.key);
-
-    if(!userID){
-      res.status(400).send("Invalid key");
-      return;
-    }
-
-    if(!keys.isAdmin(userID)){
-      res.status(403).send("Unauthorized, you need to be admin for this");
+    if(!req.user.requireAdmin()){
       return;
     }
 
@@ -52,28 +31,13 @@ module.exports = function(app, db, keys){
 
   });
 
-  app.put('/items', function(req, res){
-
+  app.post('/items', function(req, res){
     //Checks
-    if(!req.query.key){
-      res.status(400).send("No key specified");
-      return;
-    }
-
-    var userID = keys.getUserId(req.query.key);
-
-    if(!userID){
-      res.status(400).send("Invalid key");
-      return;
-    }
-
-    if(!keys.isAdmin(userID)){
-      res.status(403).send("Unauthorized, you need to be admin for this");
+    if(!req.user.requireAdmin()){
       return;
     }
 
     //Actual code
-    
 
 
   });
