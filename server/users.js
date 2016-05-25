@@ -9,15 +9,7 @@ module.exports = function(app, db, keys){
    * the given key.
   */
   app.get('/users/me', function(req, res){
-    if(!req.query.key){
-      res.status(400).send("No key specified");
-      return;
-    }
-
-    var userID = keys.getUserId(req.query.key);
-
-    if(!userID){
-      res.status(400).send("Invalid key");
+    if(!req.user.requireLogin()){
       return;
     }
 

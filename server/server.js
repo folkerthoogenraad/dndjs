@@ -5,14 +5,14 @@ var db = require("./database.js");
 var keys = require("./keys.js");
 var crypto = require('crypto');
 
-app.use(function(req, res, next) {
+app.use(function corsModule(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   next();
 });
 
-app.use(function(req, res, next){
+app.use(function userModule(req, res, next){
   req.user = {
     key : req.query.key,
     id : keys.getUserId(req.query.key),
