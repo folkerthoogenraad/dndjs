@@ -10,7 +10,8 @@ app.controller('LoginController', ['$scope', '$location', '$http', '$uibModal', 
 
   //For testing only ofc
   $uibModal.open({
-    templateUrl: 'modals/loot.html'
+    templateUrl: 'modals/loot.html',
+    controller: 'TestController',
   });
 
   $scope.submit = function(){

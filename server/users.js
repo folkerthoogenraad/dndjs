@@ -13,7 +13,7 @@ module.exports = function(app, db, keys){
       return;
     }
 
-    db.getUserDataById(userID, function resultCallback(err, result){
+    db.getUserDataById(req.user.id, function resultCallback(err, result){
       if(err){
         res.status(500).send("Internal server error");
         return;
