@@ -33,12 +33,13 @@ module.exports = function(app, db, keys){
   app.post('/dungeon/loot', function(req, res){
 
     //Checks
-    if(!req.user.requireAdmin){
+    if(!req.user.requireAdmin()){
       return;
     }
 
     //Actual code
     
+
 
   });
 };
