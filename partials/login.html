@@ -1,12 +1,14 @@
 <div class="container" ng-controller="LoginController">
-  <h1>Log in</h1>
-  <form ng-submit="submit()">
-    Username<input ng-disabled="!canInput" class="form-control" type="text" name="name" ng-model="username" placeholder="JustF">
-    Password<input ng-disabled="!canInput" class="form-control" type="password" name="name" ng-model="password" placeholder="baconstrips123">
-    <hr>
-    <p>
-      No account yet? <a href="#/register">Register here.</a>
-    </p>
-    <input ng-disabled="!canInput" type="submit" name="name" value="Log in" class="btn btn-default">
-  </form>
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-4 col-md-4 content">
+  <!---<h1 class="text-center">Dungeons and Dragons</h1> -->
+    <img src="https://upload.wikimedia.org/wikipedia/de/thumb/4/43/D%26d-3thedit-logo.svg/2000px-D%26d-3thedit-logo.svg.png" class="spaced" width="100%" alt="" />
+    <form ng-submit="submit()">
+      <div class="text-center">
+        Username
+      </div>
+      <input ng-disabled="!canInput" class="form-control text-center" type="text" name="name" ng-model="username" placeholder="JustF">
+      <hr>
+      <input ng-disabled="!canInput" type="submit" name="name" value="Enter" class="btn btn-default">
+    </form>
+  </div>
 </div>

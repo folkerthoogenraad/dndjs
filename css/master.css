@@ -1,13 +1,10 @@
 *{
   font-family: 'Exo 2', sans-serif;
 }
-body{
-  margin:0;
-  padding:0;
-}
 
-.content{
-  padding-top:70px;
+.spaced{
+  padding-top:50px;
+  padding-bottom:50px;
 }
 
 .header{

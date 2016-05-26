@@ -12,7 +12,11 @@ module.exports = function(app, db, keys){
 
     db.getUserIdByNameAndPassword(username, keys.hash(password), function(err, user){
       if(err){
-        res.status(403).send("Failed to log in.");
+        //TODO make this better
+        if(err == 1){
+          res.status(404).send("User does not exists");
+        }
+        res.status(401).send("Failed to log in.");
         return;
       }
 
@@ -27,6 +31,12 @@ module.exports = function(app, db, keys){
       }));
 
     });
+  });
+
+  app.get('/valid', function(req, res){
+    if(req.user.requireLogin()){
+      res.end("OK");
+    }
   });
 
 

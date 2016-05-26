@@ -6,13 +6,13 @@ app.controller('LoginController', ['$scope', '$location', '$http', '$uibModal', 
 
   $scope.canInput = true;
   $scope.username = "";
-  $scope.password = "";
+  $scope.password = "default";
 
   //For testing only ofc
-  $uibModal.open({
+  /*$uibModal.open({
     templateUrl: 'modals/loot.html',
     controller: 'TestController',
-  });
+  });*/
 
   $scope.submit = function(){
     if($scope.username.length < 3){
@@ -34,10 +34,22 @@ app.controller('LoginController', ['$scope', '$location', '$http', '$uibModal', 
       user = response.data.name;
       $location.path('home');
     }, function errorCallback(response) {
-      console.dir(status);
+      console.dir(response);
       //Error
-      swal("Error", "Are your login credentials correct?", "error");
+      if(response.status == 401){
+        swal("Password Required", "Please enter your password below. (aka contact developer, this is not yet implemented as you can see.)", "info");
+      }
+      if(response.status == 404){
+        swal("User does not exist", "This is your first time logging in!", "info");
+      }
+      if(response.status < 0){
+        swal("Error", "Login server couldn't be reached", "error");
+      }
       $scope.canInput = true;
     });
+  };
+
+  $scope.register = function(){
+
   };
 }]);

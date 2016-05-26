@@ -19,7 +19,7 @@ exports.getUserIdByNameAndPassword = function(name, password, callback){
     if(results[0] !== undefined){
       callback(false, results[0]);
     }else{
-      callback("User not found!", -1);
+      callback(1, -1);
     }
 
   });
