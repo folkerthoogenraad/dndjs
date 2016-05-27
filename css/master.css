@@ -15,6 +15,21 @@
   width:100%;
 }
 
+.profile-image{
+  width:100%;
+  max-width:512px;
+  margin: 0 auto;
+}
+
+.home-tile{
+  margin:4px;
+  padding:20px;
+  box-shadow: 0px 4px 4px gray;
+}
+.home-tile:hover{
+  background:#eee;
+}
+
 .extra{
   margin-top:16px;
   background: rgb(211,178,140);

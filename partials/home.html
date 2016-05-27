@@ -1,14 +1,33 @@
 <div class="container" ng-controller="HomeController">
-  <h1>Dungeons and Dragons</h1>
+  <div class="profile-image">
+    <img src="img/profile.png" width="100%" alt="" />
+  </div>
   <p>
     Welcome <strong>{{name}}</strong>. Click on the links below to check out your stats and stuff.
   </p>
-
-  <ul class="items hover">
-    <li ng-click="inventory()">Inventory</li>
-    <li ng-click="map()">Map</li>
-    <li ng-click="chat()">Chat</li>
-    <li ng-click="logout()">Log out</li>
-  </ul>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="home-tile" ng-click="inventory()">
+        Inventory
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="home-tile" ng-click="map()">
+        Events
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="home-tile" ng-click="chat()">
+        Settings
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="home-tile" ng-click="logout()">
+        Log out
+      </div>
+    </div>
+  </div>
 
 </div>

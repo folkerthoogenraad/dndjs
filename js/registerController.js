@@ -25,7 +25,7 @@ app.controller('RegisterController', ['$scope', '$location', '$http', 'user', fu
 
     $scope.canInput = false;
     $http({
-      method: 'PUT',
+      method: 'POST',
       url: baseUrl+'/users?username='+$scope.username+'&password='+$scope.password+'&realname='+$scope.realname,
     }).then(function successCallback(response) {
       //Success

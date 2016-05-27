@@ -40,7 +40,26 @@ app.controller('LoginController', ['$scope', '$location', '$http', '$uibModal', 
       console.dir(response);
       //Error
       if(response.status == 401){
-        swal("Password Required", "Please enter your password below. (aka contact developer, this is not yet implemented as you can see.)", "info");
+        swal({
+          title:"Password Required",
+          text:"Please enter your password below. (aka contact developer, this is not yet implemented as you can see.)",
+          type: "input",
+          inputType: "password",
+          showCancelButton:false,
+          animation:"slide-from-top",
+          inputPlaceholder: "flowercurtain123"
+        }, function(inputValue){
+          if(inputValue === false){
+            return false;
+          }
+          if (inputValue === "") {
+            swal.showInputError("Your password can't be empty.");
+            return false;
+          }
+          $scope.password = inputValue;
+          $scope.submit();
+
+        });
       }
       else if(response.status == 404){
         swal({
