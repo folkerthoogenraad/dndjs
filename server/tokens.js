@@ -7,16 +7,20 @@ module.exports = function(app, db, keys){
     var username = req.query.username;
     var password = req.query.password;
 
-    if(!username) {res.status(400).send("No username specified"); return;}
-    if(!password) {res.status(400).send("No password specified"); return;}
+    if(!username) {res.status(400).end("No username specified"); return;}
+    if(!password) {res.status(400).end("No password specified"); return;}
 
     db.getUserIdByNameAndPassword(username, keys.hash(password), function(err, user){
       if(err){
         //TODO make this better
         if(err == 1){
-          res.status(404).send("User does not exists");
+          res.status(404).end("User does not exists");
+        }else if(err == 2){
+          res.status(401).end("User requires password");
+        }else{
+          console.log(err);
+          res.status(500).end("Failed to log in.");
         }
-        res.status(401).send("Failed to log in.");
         return;
       }
 

@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 connection.connect();
 
 exports.getUserIdByNameAndPassword = function(name, password, callback){
-  connection.query('SELECT id, rights FROM User WHERE username=? AND password=?', [name, password], function(error, results, fields) {
+  connection.query('SELECT id, rights, password FROM User WHERE username=?', [name, password], function(error, results, fields) {
     if (error){
       console.log(error);
       callback(error, -1);
@@ -17,7 +17,13 @@ exports.getUserIdByNameAndPassword = function(name, password, callback){
     }
 
     if(results[0] !== undefined){
-      callback(false, results[0]);
+      if(password == results[0].password){
+        callback(false, {
+          id:results[0].id,
+          rights:results[0].rights});
+      }else{
+        callback(2, -1);
+      }
     }else{
       callback(1, -1);
     }

@@ -28,7 +28,7 @@ app.controller('MasterController', ['$scope', '$location', '$interval', '$http',
   }
 
   //Every half a second, check if loot has dropped
-  var promise = $interval(function(){
+  /*var promise = $interval(function(){
     if(window.localStorage.getItem("key")){
       $http({
         method: 'GET',
@@ -43,6 +43,6 @@ app.controller('MasterController', ['$scope', '$location', '$interval', '$http',
         $location.path('login');
       });
     }
-  }, 500);
+  }, 500);*/
 
 }]);

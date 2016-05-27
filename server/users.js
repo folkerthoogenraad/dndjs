@@ -15,7 +15,7 @@ module.exports = function(app, db, keys){
 
     db.getUserDataById(req.user.id, function resultCallback(err, result){
       if(err){
-        res.status(500).send("Internal server error");
+        res.status(500).end("Internal server error");
         return;
       }
 
@@ -26,20 +26,20 @@ module.exports = function(app, db, keys){
   /**
    * Creates a new user
   */
-  app.put('/users', function(req, res){
+  app.post('/users', function(req, res){
     var username = req.query.username;
     var password = req.query.password;
     var realname = req.query.realname;
 
-    if(!username) {res.status(400).send("No username specified"); return;}
-    if(!password) {res.status(400).send("No password specified"); return;}
-    if(!realname) {res.status(400).send("No realname specified"); return;}
+    if(!username) {res.status(400).end("No username specified"); return;}
+    if(!password) {res.status(400).end("No password specified"); return;}
+    if(!realname) {res.status(400).end("No realname specified"); return;}
 
     db.createUser(username, keys.hash(password), realname, function(err){
       if(err){
-        res.status(409).send("Coudn't create user, does the username already exist?");
+        res.status(409).end("Coudn't create user, does the username already exist?");
       }else{
-        res.status(200).send("User created succesfully");
+        res.status(200).end("User created succesfully");
       }
     });
 

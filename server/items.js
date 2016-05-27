@@ -13,7 +13,7 @@ module.exports = function(app, db, keys){
     //Actual code
     db.getInventoryById(req.user.id, function(error, inventory){
       if(error){
-        res.status(500).send("Internal server error.");
+        res.status(500).end("Internal server error.");
       }
       res.end(JSON.stringify(inventory));
     });

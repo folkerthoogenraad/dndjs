@@ -24,17 +24,17 @@ app.use(function userModule(req, res, next){
 
   req.user.requireAdmin = function(){
     if(!req.query.key){
-      res.status(400).send("No key specified");
+      res.status(400).end("No key specified");
       return false;
     }
 
     if(!req.user.id){
-      res.status(400).send("Invalid key");
+      res.status(400).end("Invalid key");
       return false;
     }
 
     if(!req.user.admin){
-      res.status(403).send("Unauthorized, you need to be admin for this");
+      res.status(403).end("Unauthorized, you need to be admin for this");
       return false;
     }
 
@@ -43,12 +43,12 @@ app.use(function userModule(req, res, next){
 
   req.user.requireLogin = function(){
     if(!req.query.key){
-      res.status(400).send("No key specified");
+      res.status(400).end("No key specified");
       return false;
     }
 
     if(!req.user.id){
-      res.status(400).send("Invalid key");
+      res.status(400).end("Invalid key");
       return false;
     }
 
