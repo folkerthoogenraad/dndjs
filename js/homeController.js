@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', '$location', '$http', 'user', function($scope, $location, $http, user) {
+app.controller('HomeController', ['$scope', '$location', '$http', '$uibModal', 'user', function($scope, $location, $http, $uibModal, user) {
   //TODO validate key!
   if(!window.localStorage.getItem("key")){
     $location.path('login');
@@ -22,7 +22,9 @@ app.controller('HomeController', ['$scope', '$location', '$http', 'user', functi
   });
 
   $scope.inventory = function(){
-    $location.path('inventory');
+    $uibModal.open({
+      templateUrl: 'modals/inv.html'
+    });
   };
   $scope.chat = function(){
     swal("Unimplemented", "The chat function is not yet implemented.", "error");
