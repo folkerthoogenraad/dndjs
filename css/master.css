@@ -30,6 +30,12 @@
   background:#eee;
 }
 
+.inventory-modal-body{
+  height:400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .extra{
   margin-top:16px;
   background: rgb(211,178,140);
