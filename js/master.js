@@ -5,10 +5,10 @@ var baseUrl = null; //'http://localhost:8080'
 app.config(['$routeProvider',function($routeProvider){
   $routeProvider.when('/home', {
     templateUrl: 'partials/home.html'
-  }).when('/inventory', {
-    templateUrl: 'partials/inventory.html'
   }).when('/login', {
     templateUrl: 'partials/login.html'
+  }).when('/admin', {
+    templateUrl: 'partials/admin.html'
   }).when('/register', {
     templateUrl: 'partials/register.html'
   }).otherwise({

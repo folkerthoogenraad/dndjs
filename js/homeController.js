@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', '$location', '$http', '$uibModal', 'user', function($scope, $location, $http, $uibModal, user) {
+app.controller('HomeController', ['$scope', '$location', '$http', '$uibModal', function($scope, $location, $http, $uibModal) {
   //TODO validate key!
   if(!window.localStorage.getItem("key")){
     $location.path('login');

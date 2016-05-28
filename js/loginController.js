@@ -1,4 +1,4 @@
-app.controller('LoginController', ['$scope', '$location', '$http', '$uibModal', 'user', function($scope, $location, $http, $uibModal, user) {
+app.controller('LoginController', ['$scope', '$location', '$http', '$uibModal', function($scope, $location, $http, $uibModal) {
 
   if(window.localStorage.getItem("key")){
     window.localStorage.removeItem("key");

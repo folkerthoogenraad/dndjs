@@ -1,4 +1,4 @@
-app.controller('RegisterController', ['$scope', '$location', '$http', 'user', function($scope, $location, $http, user) {
+app.controller('RegisterController', ['$scope', '$location', '$http', function($scope, $location, $http) {
 
   if(window.localStorage.getItem("key")){
     $location.path('home');
