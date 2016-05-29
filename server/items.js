@@ -27,7 +27,12 @@ module.exports = function(app, db, keys){
     }
 
     //Actual code
-
+    db.getItems(function(error, items){
+      if(error){
+        res.status(500).end("Internal server error.");
+      }
+      res.end(JSON.stringify(items));
+    });
 
   });
 

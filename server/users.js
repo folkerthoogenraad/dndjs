@@ -23,6 +23,21 @@ module.exports = function(app, db, keys){
     });
   });
 
+  app.get('/users', function(req, res){
+    if(!req.user.requireAdmin()){
+      return;
+    }
+
+    db.getUsers(function(err, result){
+      if(err){
+        res.status(500).end("Internal server error");
+        return;
+      }
+
+      res.end(JSON.stringify(result));
+    });
+  });
+
   /**
    * Creates a new user
   */

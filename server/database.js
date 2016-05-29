@@ -67,12 +67,6 @@ exports.getInventoryById = function(id, callback){
     }
   });
 
-  /*callback(false, [{
-    "name":"Longsword",
-    "description":"1d8 damage, Versitile (1d10), Piemels, Hansaplasts",
-    "value":8,
-    "weight":13,
-  }]);*/
 };
 
 exports.createUser = function(username, password, realname, callback){
@@ -95,6 +89,28 @@ exports.createUser = function(username, password, realname, callback){
   });
 };
 
+exports.getItems = function(callback){
+  connection.query('SELECT id, name, description, weight, value FROM Item', [], function(err, results, fields){
+    if(err){
+      console.log(err);
+      callback(err, []);
+    }else{
+      callback(false, results);
+    }
+  });
+};
+
+exports.getUsers = function(callback){
+  connection.query('SELECT id, username, fullname, gold, rights FROM User', [], function(err, results, fields){
+    if(err){
+      console.log(err);
+      callback(err, []);
+    }else{
+      callback(false, results);
+    }
+  });
+};
+
 exports.createItem = function(name, description, value, weight, callback){
   var post = {
     name : name,
@@ -104,6 +120,23 @@ exports.createItem = function(name, description, value, weight, callback){
   };
 
   connection.query('INSERT INTO items SET ?', post, function(err, result) {
+    if (err){
+      console.log(err);
+      callback(err);
+      return;
+    }
+
+    callback(undefined);
+  });
+};
+
+exports.giveItem = function(userId, itemId, callback){
+  var post = {
+    user_id : userId,
+    item_id : itemId,
+  };
+
+  connection.query('INSERT INTO Inventory SET ?', post, function(err, result) {
     if (err){
       console.log(err);
       callback(err);
