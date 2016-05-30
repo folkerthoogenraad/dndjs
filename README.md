@@ -24,6 +24,11 @@ node server.js
 ## Database
 By default the database name should be 'dungeons'. If you want to change this, see database.js. Database scheme coming when its final.
 
+### Tables
+User
+Inventory
+Item
+
 ## Security
 To prevent people from downloading your server files (in case this is private for you, because mysql passwords for example) you will need to add an .htaccess file. Google will help you out with this anytime. Or, even easier, you could move the server directory to another place all together.
 
