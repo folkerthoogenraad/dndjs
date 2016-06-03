@@ -30,6 +30,10 @@ app.controller('InventoryController', ['$scope', '$location', '$http', function(
     });
   };
 
+  $scope.close = function(){
+    $modalStack.dismissAll('cancel');
+  };
+
   $scope.back = function(){
     $location.path('home');
   };
